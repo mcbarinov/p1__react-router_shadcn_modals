@@ -1,8 +1,23 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useDialog } from "@/lib/dialog"
 import { ChevronDown, User } from "lucide-react"
 import { NavLink } from "react-router"
 
 export function Header() {
+  const dialog = useDialog()
+
+  const handleChangePassword = () => {
+    dialog
+      .open("changePassword")
+      .then((result) => {
+        console.log("Password change result:", result)
+        // Here you could show a toast notification
+      })
+      .catch((error) => {
+        console.error("Password change failed:", error)
+      })
+  }
+
   return (
     <header className="flex items-center justify-between px-4 py-3 border-b">
       <h1 className="text-xl font-semibold">SpaceNote</h1>
@@ -36,6 +51,8 @@ export function Header() {
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
             <DropdownMenuItem>Subscription</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleChangePassword}>Change Password</DropdownMenuItem>
+            <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </nav>

@@ -1,4 +1,7 @@
 import { Link, useLoaderData } from "react-router"
+import { useDialog } from "@/lib/dialog"
+import { Button } from "@/components/ui/button"
+import { Plus } from "lucide-react"
 
 // Type for our notes
 type Note = {
@@ -36,10 +39,33 @@ export async function loader() {
 export function NotesPage() {
   // useLoaderData() returns data from loader function
   const { notes } = useLoaderData<typeof loader>()
+  const dialog = useDialog()
+
+  const handleCreateNote = () => {
+    dialog
+      .open("createNote", { defaultTitle: "New Note" })
+      .then((newNote) => {
+        console.log("Created note:", newNote)
+        // In real app, you would:
+        // 1. Add to state or refetch notes
+        // 2. Show success toast
+        // 3. Navigate to the new note
+      })
+      .catch((error) => {
+        console.error("Failed to create note:", error)
+      })
+  }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">My Notes</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">My Notes</h1>
+        <Button onClick={handleCreateNote} size="sm">
+          <Plus className="w-4 h-4 mr-1" />
+          New Note
+        </Button>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {notes.map((note) => (
           <Link key={note.id} to={`/notes/${note.id}`} className="block p-4 border rounded-lg hover:shadow-md transition-shadow">
