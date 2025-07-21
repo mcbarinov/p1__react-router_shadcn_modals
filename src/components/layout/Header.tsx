@@ -1,5 +1,6 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronDown, User } from "lucide-react"
+import { NavLink } from "react-router"
 
 export function Header() {
   return (
@@ -7,12 +8,22 @@ export function Header() {
       <h1 className="text-xl font-semibold">SpaceNote</h1>
 
       <nav className="flex items-center gap-6 text-sm">
-        <a href="#" className="hover:underline">
+        <NavLink
+          to="/notes"
+          className={({ isActive }) =>
+            isActive ? "text-sm font-medium text-blue-600" : "text-sm font-medium text-gray-600 hover:text-gray-900"
+          }
+        >
           Notes
-        </a>
-        <a href="#" className="hover:underline">
+        </NavLink>
+        <NavLink
+          to="/spaces"
+          className={({ isActive }) =>
+            isActive ? "text-sm font-medium text-blue-600" : "text-sm font-medium text-gray-600 hover:text-gray-900"
+          }
+        >
           Spaces
-        </a>
+        </NavLink>
 
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-1 font-medium hover:underline focus:outline-none">

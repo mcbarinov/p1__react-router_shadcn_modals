@@ -5,3 +5,4 @@ pnpm add -D @types/node
 pnpm dlx shadcn@latest init
 pnpm dlx shadcn@latest add button
 pnpm dlx shadcn@latest add dropdown-menu
+pnpm add react-router
